@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table Conversion</title>
+</head>
+<body>
+
+<table id ="0">
+
+    <tr>
+        <td>Paris</td>
+        <td><button onclick="prepareupdate(this)">Prepare to update</button></td>
+    </tr>
+
+</table>
+
+<script>
+
+    function prepareupdate(elem){
+
+        var trElem = elem.parentNode.parentElement;
+        var tdElems = trElem.getElementsByTagName("td");
+
+
+        var tdElem = tdElems[0];
+        var contents = tdElem.innerHTML
+
+    tdElem.innerHTML = "<input value = '"+contents+"'>"
+
+        console.log("stil work?")
+    }
+
+</script>
+
+
+
+</body>
+</html>

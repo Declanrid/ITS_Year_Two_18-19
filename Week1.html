@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buttons and passing in functions</title>
+
+    <input type="text" onchange="textchanged(this)">
+</head>
+
+
+<body>
+
+
+
+    <script>
+
+
+
+        function textchanged(elem){
+            var text = elem.value;
+            var number = text.length
+            console.log(number)
+
+            if (number == 0){
+                console.log("Please Type Something.")
+            }else{
+                if (number <5){
+                    console.log("Ok, got that.")
+                } else {console.log("Thats a big word")
+                }
+            }
+
+
+
+        }
+
+
+        console.log("works")
+
+    </script>
+
+
+
+
+
+</body>
+</html>

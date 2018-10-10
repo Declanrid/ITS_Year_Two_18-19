@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Tables</title>
+
+</head>
+<style>
+    table, th, tr {border: 1px solid black;}
+</style>
+
+<body>
+
+    <div>
+        <table id = "table1">
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>Joe</td>
+            <td><button onclick="deleteRow(this)">Delete</button></td>
+            <td><button onclick="update(this)">Update</button>
+            <button style = "display:none"; onclick="commit(this)">Commit</button></td>
+            </tr>
+        </table>
+        </div>
+</br>
+
+    <div id = "input">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+
+            <tr>
+                <td><input type = "text" id = "idinput"></td>
+                <td><input type = "text" id = "nameinput"</td>
+            </tr>
+
+            <tr>
+                <td><button onclick = "create(this)">Create</button></td>
+            </tr>
+
+        </table>
+
+    </div>
+	
+	
+<script>
+
+    function deleteRow(elem){
+
+        var rowtodelete = elem.parentNode.parentElement.rowIndex;
+        var table = document.getElementById("table1").deleteRow(rowtodelete);
+
+    }
+
+    function update(elem) {
+
+        var trElem = elem.parentNode.parentElement;
+        var tdElems = trElem.getElementsByTagName("td");
+
+
+        for (var d = 0; d <2; d++) {
+
+            var tdElem = tdElems[d];
+            var contents = tdElem.innerHTML
+
+            tdElem.innerHTML = "<input value = '" + contents + "'>"
+          }
+            var actionCell  = tdElems[3]
+            var buttonElems = actionCell.getElementsByTagName("button")
+            var prepare     = buttonElems[0];
+            var commit      = buttonElems[1];
+
+            prepare.style.display ="none";
+            commit.style.display ="block";
+    }
+
+    function commit(elem) {
+
+        var trElem = elem.parentNode.parentElement;
+        var tdElems = trElem.getElementsByTagName("td");
+
+        for (var d = 0; d <2; d++) {
+
+            var tdElem = tdElems[d];
+            var contents = tdElem.firstChild.value
+
+            tdElem.innerHTML = contents
+
+        }
+            var actionCell  = tdElems[3];
+            var buttonElems = actionCell.getElementsByTagName("button")
+            var prepare     = buttonElems[0];
+            var commit      = buttonElems[1];
+
+            prepare.style.display = "block";
+            commit.style.display = "none";
+    }
+
+
+	
+	
+	function create(elem) {
+
+        var idinputvalue = document.getElementById("idinput").value
+        var nameinputvalue = document.getElementById("nameinput").value
+        {
+            console.log(idinputvalue);
+            console.log(nameinputvalue);
+
+            var table       = document.getElementById("table1");
+            var row         = table.insertRow(-1);
+            var IDCell      = row.insertCell(0);
+            var NameCell    = row.insertCell(1);
+            var DeleteCell  = row.insertCell(2);
+            var PrepareCell = row.insertCell(3);
+            var CommitCell  = row.insertCell(4);
+
+            IDCell.innerHTML        = idinputvalue
+            NameCell.innerHTML      = nameinputvalue
+            DeleteCell.innerHTML    = '<button onclick="deleteRow(this)">Delete</button>'
+            PrepareCell.innerHTML   = '<button onclick="update(this)">Update</button>' +
+                '<button style = "display:none"; onclick="commit(this)">Commit</button>'
+
+            document.getElementById("idinput").value = ""
+            document.getElementById("nameinput").value = ""
+        }
+    }
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

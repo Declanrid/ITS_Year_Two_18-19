@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+</head>
+
+    <input type = "text" onchange="changed(this)">
+    <input type = "text" onchange="grade(this)">
+
+    <body onclick ="clicking()">
+        this is hello world
+
+        <script>
+
+            console.log ("This works.")
+            function clicking() {
+            console.log("Body click works.")
+            }
+
+            function changed(elem){
+                console.log(elem.value)
+            }
+
+             function grade(elem){
+                var gradeanswer = parseInt(elem.value)
+
+                 if(gradeanswer < 40){
+                     console.log("fail")
+                 }
+                 else{
+                     if(gradeanswer <60) {
+                         console.log("pass")
+                     } else{
+                         if(gradeanswer <80){
+                             console.log("merit")
+                         }else {
+                             if(gradeanswer <=100){
+                                 console.log("Distinction")
+                             }else {console.log ("Cheater")}
+
+                         }
+
+                     }
+                 }
+
+
+
+
+            }
+
+        </script>
+
+
+    </body>
+</html>

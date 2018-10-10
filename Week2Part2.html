@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Tables and For Loops</title>
+
+
+
+</head>
+<body>
+
+    <table id = "TableOne">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+
+        <tr id = "1">
+            <td>1</td>
+            <td>Joe</td>
+            <td><button onclick="del(1)">Delete</button></td>
+            <td><button id="update1" onclick="prepareupdate(this)">Prepare to update</button></td>
+            <td><button id="commit1" onclick="UpdateandShow()">Commit</button></td>
+        </tr>
+
+        <tr id = "2">
+            <td>2</td>
+            <td>John</td>
+            <td><button onclick="del(1)">Delete</button></td>
+            <td><button id="update2" onclick="prepareupdate(this)">Prepare to update</button></td>
+            <td><button id="commit2" onclick="UpdateandShow2()">Commit</button></td>
+        </tr>
+
+    </table>
+
+
+
+<script>
+
+
+    function UpdateandShow(elem){
+        document.getElementById("update1").style.visibility = "none"
+        document.getElementById("commit1").style.visibility = "visible"
+    }
+
+
+    function prepareupdate(elem) {
+
+
+        var trElem = elem.parentNode.parentElement;
+        console.log(trElem.toString())
+        var tdElems = trElem.getElementsByTagName("td");
+
+
+        for (var i = 0; i < 2; i++) {
+
+            var tdElem = tdElems[i];
+            var contents = tdElem.innerHTML
+
+            tdElem.innerHTML = "<input value = '" + contents + "'>"
+        }
+    }
+
+
+
+
+</script>
+
+</body>
+</html>

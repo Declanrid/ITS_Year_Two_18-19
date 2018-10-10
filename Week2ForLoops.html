@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>ForLoops</title>
+
+
+
+</head>
+<body>
+
+<input type = "number"  onchange="numberchanged(this)">
+<input type = "text" onchange ="textchanged(this)">
+
+
+
+<script>
+
+    for (var a = 10; a > 0; a--){
+       console.log(a)
+   }
+   console.log("Blast Off")
+
+    for (var b = 0; b < 10; b++){
+        console.log(b)
+    }
+
+    function numberchanged(elem){
+
+        for (var c = 2; c <= elem.value; c = c +2){
+            console.log(c)
+        }
+
+    }
+
+    var animals = ["cat", "dog", "Under", "the", "bus"]
+
+    function textchanged(elem){
+
+        animals.push(elem.value)
+
+        var len = animals.length
+        for (var d = 0; d < len; d++) {
+            console.log(animals[d])
+        }
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

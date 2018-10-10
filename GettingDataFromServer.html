@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data from Server</title>
+</head>
+<style>
+    table,tr, th, td {border: 2px solid black; color: black}
+</style>
+<body>
+
+<table align="center" id = "table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>E-Mail</th>
+    </tr>
+</table>
+
+<hr>
+<div>
+Title       <input name =   "title">
+Name        <input name =   "name">
+User_ID     <input name =   "userid">
+
+<button onclick = "createPost(this)">Create</button>
+</div>
+
+
+<script>
+    function EnterDataTable(responseText){
+
+        var datavalue               =  responseText;
+        var table                   =  document.getElementById("table");
+
+        for(var a = 0; a < datavalue.length; a++) {
+
+            var row                 = table.insertRow(-1);
+            var idcell              = row.insertCell(0);
+            var namecell            = row.insertCell(1);
+            var usernamecell        = row.insertCell(2);
+            var emailcell           = row.insertCell(3);
+
+            var id                  = datavalue[a].id;
+            var name                = datavalue[a].name;
+            var username            = datavalue[a].username;
+            var email               = datavalue[a].email;
+
+
+
+            idcell.innerHTML        = id;
+            namecell.innerHTML      = name;
+            usernamecell.innerHTML  = username;
+            emailcell.innerHTML     = email;
+
+        }
+    }
+
+    //Get Information from server
+    function loadUsersDoc(url, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function()
+        {
+
+            if (this.readyState == 4 && this.status == 200)
+            {
+            callback(JSON.parse(this.responseText));
+            }
+        };
+    xhttp.open("GET", url, true);
+    xhttp.send();
+    }
+    loadUsersDoc("https://jsonplaceholder.typicode.com/users", EnterDataTable);
+    //Get Information from server
+
+
+
+    //Send Information to server
+    function postAjax(url, params, callback){
+
+        var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+
+                if (this.readyState == 4){
+                    callback(this.responseText);
+                }
+        };
+
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send(params);
+    }
+    //Send Information to server
+
+    function sendCreatePost(inputData){
+
+        var params =    "title="+inputData["title"]+
+                        "&name="+inputData["name"]+
+                        "&userid="+inputData["userid"];
+
+            postAjax("https://jsonplaceholder.typicode.com/posts", params, function(response){
+                console.log(response)
+        })
+    }
+
+    function createPost(elem){
+            var parent      = elem.parentElement;
+            var inputData   = []
+            var inputElems  = parent.getElementsByTagName("input");
+
+        for (var i = 0; i < inputElems.length; i++){
+            var inputElem = inputElems[i];
+
+            inputData[inputElem.name] = inputElem.value;
+        }
+            console.log(inputData);
+            sendCreatePost(inputData);
+    }
+
+</script>
+
+</body>
+</html>

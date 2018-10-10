@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buttons and functions</title>
+    <input type ="button" id = "button2" style="float: right" onmouseover="over(this)">
+    <input type ="button" id ="button1" style= "float: left" onmouseover="over2(this)">
+    </head>
+<body>
+
+<script>
+
+    function over(elem){
+        document.getElementById("button2").style.visibility ="hidden"
+        document.getElementById("button1").style.visibility ="visible"
+    }
+
+    function over2(elem) {
+        document.getElementById("button1").style.visibility = "hidden"
+        document.getElementById("button2").style.visibility ="visible"
+    }
+
+
+
+    console.log("works")
+</script>
+
+
+</body>
+</html>
