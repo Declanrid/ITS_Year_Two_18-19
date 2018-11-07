@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Game</title>
+</head>
+<body>
+
+<canvas id = "canvas" width= "928" height= "792" style = "border: 1px solid black"></canvas>
+<script src = "JS/Layers.js"></script>
+
+</body>
+
+<script>
+
+    var canvas      = document.getElementById("canvas");
+    var ctx         = canvas.getContext("2d");
+
+    var layers      = [];
+
+    for (var i = 0; i < 2; i++){
+        layers.push(new Layer(canvas))
+    }
+
+    function drawCanvas(){
+
+    }
+
+    function tickAll(){
+        drawCanvas();
+    }
+
+    setInterval( tickAll, 1000);
+
+</script>
+</html>

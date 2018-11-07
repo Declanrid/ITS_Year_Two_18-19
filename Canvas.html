@@ -1,10 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <title>Canvas</title>
+    <title>Pong</title>
+
 </head>
 <body>
 
+    <canvas id = "board" width = "400" height = "400" style = "border: 1px solid black">
+
+    </canvas>
+
+
+<script>
+
+        var canvas      = document.getElementById("board");
+        var ctx         = canvas.getContext("2d");
+        var paddle1 = {
+		
+            x:0, y:150, vx:0, vy:0, w:5, h:50,
+            tick:           paddleTick,
+            draw:           paddleDraw,
+            handleKeyDown:  paddleKeyDown,
+            handleKeyUp:    paddleKeyUp,
+            downKey:        83,
+            upKey:          87,
+        };
+		
+        var paddle2 = {
+		
+            x:395, y:150, vx:0, vy:0, w:5, h:50,
+            tick:           paddleTick,
+            draw:           paddleDraw,
+            handleKeyDown:  paddleKeyDown,
+            handleKeyUp:    paddleKeyUp,
+            downKey:        40,
+            upKey:          38,
+        };
+
+
+    function drawAll(){
+
+        var canvas      = document.getElementById("board");
+        var ctx         = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        paddle1.draw(ctx)
+        paddle2.draw(ctx)
+		ball.draw(ctx);
+		score1.draw(ctx);
+		score2.draw(ctx);
+    }
+    function paddleDraw(ctx){
+	
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+
+    function tickAll(){
+	
+        var canvas      = document.getElementById("board");
+        drawAll();
+        paddle1.tick(canvas);
+        paddle2.tick(canvas);
+		ball.tick(canvas);
+		
+    }
+
+        setInterval(tickAll, 1000/60);
+
+
+    function paddleTick(canvas){
+	
+        this.y += this.vy;
+
+        if (this.y < 0 - this.h) {this.y = canvas.height;}
+        if (this.y > canvas.height) {this.y = 0 - this.h;}
+    }
+
+        paddle1.tick(canvas);
+        paddle2.tick(canvas);
+
+        window.addEventListener("keydown", function(event){
+            console.log(event.keyCode);
+
+            paddle1.handleKeyDown(event.keyCode);
+            paddle2.handleKeyDown(event.keyCode);
+        });
+
+    function paddleKeyDown(key){
+        if (key == this.downKey)    {this.vy = 2;}
+        if (key == this.upKey)      {this.vy = -2;}
+
+    }
+
+        window.addEventListener("keyup", function(event){
+            console.log(event.keyCode);
+
+            paddle1.handleKeyUp(event.keyCode);
+            paddle2.handleKeyUp(event.keyCode);
+        });
+
+    function paddleKeyUp(key){
+        if (key == this.downKey)    {this.vy = 0;}
+        if (key == this.upKey)      {this.vy = 0;}
+
+    }
+	
+		var ball = { 			
+			x:			200,
+			y:			200,
+			r:			10,
+			vx:			2,
+			vy:			2,
+			tick:		ballTick,
+			draw:		ballDraw
+		};
+		
+	function ballDraw(ctx){
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+		ctx.fill();
+	}
+	
+		
+	function ballTick(){
+	
+		this.x += this.vx;
+		this.y += this.vy;
+		
+		if (this.y < this.r) {this.vy = Math.abs(this.vy);}
+		if (this.y > (canvas.height - this.r)) {this.vy = -Math.abs(this.vy);}
+		
+		if (this.x < 0 - this.r) {
+			this.x = 200;
+			this.y = 200;
+			this.vx = Math.abs(this.vx);
+			score2.score++
+		}
+		
+		if (this.x > (canvas.width + this.r)){
+			this.x = 200;
+			this.y = 200;
+			this.vx = -Math.abs(this.vx);
+			score1.score++
+		}
+        if (checkCollision(this, paddle2)){
+            this.vx = -Math.abs(this.vx)
+        }
+        if (checkCollision(this, paddle1)){
+            this.vx = Math.abs(this.vx)
+        }
+	}
+	
+
+	function checkCollision(ball, paddle){
+		
+		var bx 	= ball.x;
+		var by	= ball.y;
+		var r	= ball.r;
+		var px	= paddle.x;
+		var py	= paddle.y;
+		var w	= paddle.w;
+		var h 	= paddle.h;
+		
+		if ((bx>px-r)&& (bx<px+w+r)){
+			if ((by>py-r)&&(by<(py+h+r))){
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+
+	
+
+	var score1 = {
+		x:		20, 
+		y:		10, 
+		score:	0,
+		draw:	scoreDraw
+	};
+	
+	var score2 = {
+		x:		320,
+		y:		10,
+		score:	0,
+		draw:	scoreDraw
+	};
+	
+	function scoreDraw(ctx){
+		ctx.fillText("" + this.score, this.x, this.y)
+	}
+	
+	
+		
+	
+		
+
+
+
+
+
+</script>
+
 </body>
+
 </html>

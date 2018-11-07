@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wolf Sprite</title>
+</head>
+
+<body>
+
+<canvas id = "board" width = "400" height = "200" style = "border: 1px solid black"></canvas>
+<script src = "simpleWolf.js"></script>
+<script src =  "wolfSprite.js"></script>
+
+<script>
+
+
+
+    var canvas      =   document.getElementById("board");
+    var ctx         =   canvas.getContext("2d");
+    var background  =   new Image();
+    background.src  =   "images/background.jpg"
+
+    background.onload = function(){
+        ctx.drawImage(background, 0, 0)
+    }
+
+    function drawCanvas(){
+        ctx.drawImage(background, 0, 0)
+        wolf.draw(ctx);
+
+
+
+    }
+
+    function tickAll(){
+
+        wolf.tick(canvas);
+        drawCanvas();
+    }
+
+    setInterval( tickAll, 1000/10);
+
+</script>
+
+</body>
+</html>
