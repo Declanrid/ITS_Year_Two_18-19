@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>Canvas Game</title>
+    <style>
+        .center {
+            margin:     auto;
+            width:      55.5%;
+            padding:    0px;
+        }
+        html {
+            background: url(Images/Layer_1.png) no-repeat center fixed;
+            background-size: cover;
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <h1 align="center"> Declan's Game</h1>
+
+    <hr>
+
+    <div class = "center">
+        <canvas id = "canvas" width= "700" height= "500"></canvas>
+    </div>
+
+    <hr>
+
+
+
+
+
+
+
+
+
+<script src = "JS/Layers.js"></script>
+<script src = "JS/wolfSprite.js"></script>
+<script src = "JS/Cactus.js"></script>
+
+
+
+</body>
+
+<script>
+
+    var canvas      = document.getElementById("canvas");
+    var ctx         = canvas.getContext("2d");
+    var options ={gravity:1, floor:450};
+    var layers      = [];
+    var actors = [];
+    actors.push(wolf);
+    actors.push(new Cactus(canvas))
+
+    for (var i = 1; i < 12; i++){
+        layers.push(new Layer(canvas,
+            "Images/Layer_" + i + ".png",
+        i/4))
+    }
+
+    function drawCanvas(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for (var i = 0 ;i < 11; i++){
+            layers[i].draw()
+        }
+        for (var j = 0; j<actors.length; j++){
+            actors[j].draw(ctx);
+        }
+    }
+
+    function newCactus(){
+        actors.push(new Cactus(canvas));
+    }
+
+    function checkCollision(wolf, Cactus){
+
+        var wx  = wolf.x;
+        var wy  = wolf.y;
+        var ww  = wolf.sprites[col].sw;
+        var wh  = wolf.sprites[col].sh;
+        var cx  = Cactus.x;
+        var cy  = Cactus.y;
+        var cw  = 50;
+        var ch  = 70;
+
+    }
+
+    function tickAll(){
+        for (var i = 0; i < 11; i++){
+            layers[i].tick()
+        }
+        var deleteElems = [];
+       for (var j = 0; j<actors.length; j++){
+            if(actors[j].tick(canvas)){
+                deleteElems.push(j);
+            };
+        };
+        for (var k= deleteElems.length-1; k>=0 ; k--){
+            console.log("deleting elem:"+deleteElems[k]);
+            actors.splice(deleteElems[k],1);
+
+            newCactus()
+        }
+        drawCanvas();
+    }
+
+    setInterval( tickAll, 1000/25);
+
+        window.addEventListener("keydown", function (event) {
+            wolf.keyDown(event.keyCode);
+
+
+
+    });
+
+        window.addEventListener("keyup", function (event) {
+            wolf.keyUp(event.keyCode);
+    });
+
+
+
+</script>
+</html>
