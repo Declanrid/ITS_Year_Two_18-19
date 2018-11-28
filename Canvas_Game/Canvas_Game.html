@@ -21,22 +21,19 @@
 </head>
 <body>
 
-    <h1 align="center"> Declan's Game</h1>
-
+    <h1 align   =   "center"> Declan's Game</h1>
     <hr>
 
-    <div class = "center">
+    <div class  =   "center">
         <canvas id = "canvas" width= "700" height= "500"></canvas>
     </div>
 
+
+
     <hr>
-
-
-
-
-
-
-
+    <div class  = "center">
+        <button id = "resetgame" onclick="resetGame()">Reset Game!</button>
+    </div>
 
 
 <script src = "JS/Layers.js"></script>
@@ -44,18 +41,26 @@
 <script src = "JS/Cactus.js"></script>
 
 
-
 </body>
 
 <script>
 
+    function resetGame(){
+      document.location.href = ""
+    }
+
     var canvas      = document.getElementById("canvas");
     var ctx         = canvas.getContext("2d");
-    var options ={gravity:1, floor:450};
+    var options     ={gravity:1, floor:450};
     var layers      = [];
-    var actors = [];
+    var actors      = [];
+    var cactus      =   new Cactus(canvas);
+    var game        ={canvas:canvas, obstacles:[]};
+    wolf.game       = game;
+
     actors.push(wolf);
-    actors.push(new Cactus(canvas))
+    actors.push(cactus);
+    game.obstacles.push(cactus);
 
     for (var i = 1; i < 12; i++){
         layers.push(new Layer(canvas,
@@ -71,24 +76,16 @@
         for (var j = 0; j<actors.length; j++){
             actors[j].draw(ctx);
         }
+        score.draw(ctx);
     }
 
     function newCactus(){
-        actors.push(new Cactus(canvas));
+        Cactus.prototype.vx     = Cactus.prototype.vx-0.3;
+        cactus                  = new Cactus(canvas);
+        actors.push(cactus);
+        game.obstacles.push(cactus);
     }
 
-    function checkCollision(wolf, Cactus){
-
-        var wx  = wolf.x;
-        var wy  = wolf.y;
-        var ww  = wolf.sprites[col].sw;
-        var wh  = wolf.sprites[col].sh;
-        var cx  = Cactus.x;
-        var cy  = Cactus.y;
-        var cw  = 50;
-        var ch  = 70;
-
-    }
 
     function tickAll(){
         for (var i = 0; i < 11; i++){
@@ -98,14 +95,18 @@
        for (var j = 0; j<actors.length; j++){
             if(actors[j].tick(canvas)){
                 deleteElems.push(j);
+                game.obstacles.shift();
             };
         };
-        for (var k= deleteElems.length-1; k>=0 ; k--){
+        for (var k = deleteElems.length-1; k>=0 ; k--){
             console.log("deleting elem:"+deleteElems[k]);
             actors.splice(deleteElems[k],1);
 
+
             newCactus()
         }
+
+        score.score++;
         drawCanvas();
     }
 
@@ -113,14 +114,25 @@
 
         window.addEventListener("keydown", function (event) {
             wolf.keyDown(event.keyCode);
-
-
-
     });
 
         window.addEventListener("keyup", function (event) {
             wolf.keyUp(event.keyCode);
     });
+
+        ctx.font        = '25pt Calibri';
+        ctx.fillStyle   = 'yellow';
+
+        var score = {
+            x:      20,
+            y:      25,
+            score:  0,
+            draw:   scoreDraw
+        };
+
+        function scoreDraw(ctx){
+            ctx.fillText("Score: " + this.score, this.x, this.y)
+        }
 
 
 
