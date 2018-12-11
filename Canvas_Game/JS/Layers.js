@@ -54,7 +54,7 @@ Layer.prototype.draw = function (){
             dx,
             0,
             sw - dx,
-            this.canvas.height
+            this.canvas.height,
         )
     }
 

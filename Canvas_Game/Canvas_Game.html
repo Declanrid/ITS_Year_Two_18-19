@@ -15,6 +15,10 @@
             background: url(Images/Layer_1.png) no-repeat center fixed;
             background-size: cover;
         }
+        h2 {
+            color: red;
+        }
+
     </style>
 
 
@@ -22,6 +26,7 @@
 <body>
 
     <h1 align   =   "center"> Declan's Game</h1>
+    <h4 align   =   "center">Jump over the Cacti to gain a higher score!</h4>
     <hr>
 
     <div class  =   "center">
@@ -29,11 +34,12 @@
     </div>
 
 
-
     <hr>
-    <div class  = "center">
-        <button id = "resetgame" onclick="resetGame()">Reset Game!</button>
-    </div>
+
+    <h2 align   =   "center" ><u>Controls</u></h2>
+    <h4 align   =   "center">Left arrow moves left</h4>
+    <h4 align   =   "center">Right arrow moves right</h4>
+    <h4 align   =   "center">Up arrow jumps</h4>
 
 
 <script src = "JS/Layers.js"></script>
@@ -44,10 +50,6 @@
 </body>
 
 <script>
-
-    function resetGame(){
-      document.location.href = ""
-    }
 
     var canvas      = document.getElementById("canvas");
     var ctx         = canvas.getContext("2d");
@@ -96,10 +98,9 @@
             if(actors[j].tick(canvas)){
                 deleteElems.push(j);
                 game.obstacles.shift();
-            };
-        };
+            }
+        }
         for (var k = deleteElems.length-1; k>=0 ; k--){
-            console.log("deleting elem:"+deleteElems[k]);
             actors.splice(deleteElems[k],1);
 
 
@@ -133,6 +134,8 @@
         function scoreDraw(ctx){
             ctx.fillText("Score: " + this.score, this.x, this.y)
         }
+
+
 
 
 

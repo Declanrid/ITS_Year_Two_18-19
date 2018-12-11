@@ -76,7 +76,7 @@ var wolf = {
         };
         this.baseImage.src = this.imageUrl;
     },
-    checkCollision:function ( otherActor) {
+    checkCollision: function (otherActor, canvas) {
         var wolfx       = this.x;
         var wolfy       = this.y;
         var wolfw       = this.sprites[this.currentSprite].sw;
@@ -90,14 +90,25 @@ var wolf = {
             (wolfy > cactusy - wolfh)&&
             (wolfx < cactusx + cactusw)&&
             (wolfy < cactusy + cactush)){
+
+
+            alert(  "GAME OVER!!   " +
+                    "Your Score is: " +
+                    score.score +
+                    "  " +
+                    " Click OK To Restart Game!")
+
+            document.location.reload();
+
         }
+
     },
 
 
     keyDown:function(keyCode){
-        if (keyCode == this.keyRight)   {this.vx = 5;}
-        if (keyCode == this.keyLeft)    {this.vx = -5;}
-        if (keyCode == this.keyJump && this.y == options.floor )    {this.vy = -10;
+        if (keyCode == this.keyRight)   {this.vx = 8;}
+        if (keyCode == this.keyLeft)    {this.vx = -8;}
+        if (keyCode == this.keyJump && this.y == options.floor ){this.vy = -11;
         }
 
     },
