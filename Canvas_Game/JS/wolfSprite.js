@@ -30,9 +30,7 @@ var wolf = {
                 this.sprites[this.currentSprite].sw,
                 this.sprites[this.currentSprite].sh
             );
-
         }
-
     },
 
     tick: function (canvas) {
@@ -40,35 +38,34 @@ var wolf = {
 
             if (this.currentSprite == 5) {this.currentSprite = 0; }
             if (this.y > options.floor){
-            this.vy = 0;
-            this.y = options.floor;
-        }
+                this.vy = 0;
+                this.y = options.floor;
+            }
             if (this.y<options.floor){
-            this.vy +=options.gravity;
-        }
-            this.x += this.vx;
-            this.y += this.vy;
+                this.vy +=options.gravity;
+            }
+                this.x += this.vx;
+                this.y += this.vy;
             for (var i=0; i< game.obstacles.length; i++){
                 this.checkCollision(game.obstacles[i]);
             }
-
     },
 
     initialise: function () {
 
-                this.baseImage.onload = function () {
-                    var spritew = 64;
-                    var spriteh = 32;
-                    var row =4;
-                    for (var col = 0; col < 5; col++) {
-                        wolf.sprites[col] = {};
-                        wolf.sprites[col].sx    = 320 + col * spritew;
-                        wolf.sprites[col].sy    = row * spriteh;
-                        wolf.sprites[col].sw    = 64;
-                        wolf.sprites[col].sh    = 32;
-                        wolf.x                  = 350;
-                        wolf.y                  = 450;
+        this.baseImage.onload = function () {
+            var spritew = 64;
+            var spriteh = 32;
+            var row =4;
 
+            for (var col = 0; col < 5; col++) {
+                wolf.sprites[col] = {};
+                wolf.sprites[col].sx    = 320 + col * spritew;
+                wolf.sprites[col].sy    = row * spriteh;
+                wolf.sprites[col].sw    = 64;
+                wolf.sprites[col].sh    = 32;
+                wolf.x                  = 350;
+                wolf.y                  = 450;
             }
 
             wolf.ready = true;
@@ -77,6 +74,7 @@ var wolf = {
         this.baseImage.src = this.imageUrl;
     },
     checkCollision: function (otherActor, canvas) {
+
         var wolfx       = this.x;
         var wolfy       = this.y;
         var wolfw       = this.sprites[this.currentSprite].sw;
@@ -92,13 +90,13 @@ var wolf = {
             (wolfy < cactusy + cactush)){
 
 
-            alert(  "GAME OVER!!   " +
+           /* alert(  "GAME OVER!!   " +
                     "Your Score is: " +
                     score.score +
                     "  " +
                     " Click OK To Restart Game!")
 
-            document.location.reload();
+            document.location.reload(); */
 
         }
 

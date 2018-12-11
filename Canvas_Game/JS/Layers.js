@@ -15,13 +15,12 @@ function Layer(canvas, imageURL, speed){
 
 function getImage(imageURL,layer){
     var image = new Image();
-    image.onload = function(){
-        layer.ready = true;
+        image.onload = function(){
+            layer.ready = true;
     };
-    image.src = imageURL;
+        image.src = imageURL;
 
-    return image;
-
+        return image;
 }
 
 Layer.prototype.draw = function (){
@@ -29,19 +28,19 @@ Layer.prototype.draw = function (){
     var sw  = this.image.width;
     var dx  = sw - this.sx;
 
-    if (dx<0) {
-        this.sx = -dx;
-        dx  = sw - this.sx
+        if (dx<0) {
+            this.sx = -dx;
+            dx  = sw - this.sx
     }
-    this.ctx.drawImage(
-        this.image,
-        this.sx,
-        this.sy,
-        cw,
-        this.canvas.height,
-        0,0,
-        cw,
-        this.canvas.height
+            this.ctx.drawImage(
+            this.image,
+            this.sx,
+            this.sy,
+            cw,
+            this.canvas.height,
+            0,0,
+            cw,
+            this.canvas.height
     );
 
    if (cw > dx){
@@ -61,6 +60,6 @@ Layer.prototype.draw = function (){
 };
 
 Layer.prototype.tick = function (){
-    this.sx += this.vsx;
-    this.sy += this.vsy;
+        this.sx += this.vsx;
+        this.sy += this.vsy;
 };

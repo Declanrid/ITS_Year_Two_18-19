@@ -16,9 +16,8 @@
             background-size: cover;
         }
         h2 {
-            color: red;
+            color: #0018ff;
         }
-
     </style>
 
 
@@ -27,14 +26,14 @@
 
     <h1 align   =   "center"> Declan's Game</h1>
     <h4 align   =   "center">Jump over the Cacti to gain a higher score!</h4>
-    <hr>
+
+        <hr>
 
     <div class  =   "center">
         <canvas id = "canvas" width= "700" height= "500"></canvas>
     </div>
 
-
-    <hr>
+        <hr>
 
     <h2 align   =   "center" ><u>Controls</u></h2>
     <h4 align   =   "center">Left arrow moves left</h4>
@@ -65,50 +64,67 @@
     game.obstacles.push(cactus);
 
     for (var i = 1; i < 12; i++){
+
         layers.push(new Layer(canvas,
-            "Images/Layer_" + i + ".png",
-        i/4))
+            "Images/Layer_" + i + ".png", i/4))
     }
 
     function drawCanvas(){
+
         ctx.clearRect(0,0,canvas.width,canvas.height);
+
         for (var i = 0 ;i < 11; i++){
             layers[i].draw()
         }
+
         for (var j = 0; j<actors.length; j++){
             actors[j].draw(ctx);
         }
+
         score.draw(ctx);
     }
 
-    function newCactus(){
-        Cactus.prototype.vx     = Cactus.prototype.vx-0.3;
+
+    function newCactus(getRandomNumber){
+
+        Cactus.prototype.vx     = -Math.floor(Math.random() * 10) * 3;
+        if (Cactus.prototype.vx == -0){Cactus.prototype.vx = -5};
+        if (Cactus.prototype.vx > -5){Cactus.prototype.vx = -8};
         cactus                  = new Cactus(canvas);
         actors.push(cactus);
         game.obstacles.push(cactus);
+
+
+
+        console.log(Cactus.prototype.vx)
+
     }
 
 
     function tickAll(){
+
         for (var i = 0; i < 11; i++){
             layers[i].tick()
         }
+
         var deleteElems = [];
-       for (var j = 0; j<actors.length; j++){
+
+        for (var j = 0; j<actors.length; j++){
             if(actors[j].tick(canvas)){
                 deleteElems.push(j);
                 game.obstacles.shift();
             }
         }
+
         for (var k = deleteElems.length-1; k>=0 ; k--){
             actors.splice(deleteElems[k],1);
-
 
             newCactus()
         }
 
         score.score++;
         drawCanvas();
+
     }
 
     setInterval( tickAll, 1000/25);

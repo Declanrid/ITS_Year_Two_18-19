@@ -7,7 +7,6 @@ function Cactus (canvas) {
     this.sy         = 230;
     this.w          = 40;
     this.h          = 50;
-
     this.ready      = false;
     this.imageUrl   = "Images/Cactus_158x240.png";
     this.baseImage  = new Image();
@@ -21,7 +20,7 @@ function Cactus (canvas) {
     this.baseImage.src = this.imageUrl;
 }
 
-Cactus.prototype.vx = -5;
+Cactus.prototype.vx = -5.0;
 Cactus.prototype.draw= function (ctx) {
     if (this.ready) {
         ctx.drawImage(
@@ -36,6 +35,7 @@ Cactus.prototype.draw= function (ctx) {
             this.h);
     }
 };
+
 Cactus.prototype.tick= function (canvas) {
     this.x += this.vx;
     return (this.x < 0);
